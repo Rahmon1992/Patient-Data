@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  h1.text-center #{"Patient Data"}
+  form(action="/search" method="get")
+    input(type='hidden', name='token', value='55')
+    .form-group
+      .input-group
+        .input-group-prepend
+          span.input-group-text #{"№"}
+        input.form-control(type='number', placeholder='The maximum number of Total Discharges', name='max_discharges')
+        input.form-control(type='number', placeholder='The minimum number of Total Discharges', name='min_discharges')
+    .form-group
+      .input-group
+        .input-group-prepend
+          span.input-group-text #{"$"}
+        input.form-control(type='number', placeholder='The maximum Average Covered Charges', name='max_average_covered_charges')
+        input.form-control(type='number', placeholder='The minimum Average Covered Charges', name='min_average_covered_charges')
+    .form-group
+      .input-group
+        .input-group-prepend
+          span.input-group-text #{"$"}
+        input.form-control(type='number', placeholder='The maximum Average Medicare Payment', name='max_average_medicare_payments')
+        input.form-control(type='number', placeholder='The minimum Average Medicare Payment', name='min_average_medicare_payments')
+    .row
+      .form-group.col-4
+        .input-group.mb-3
+          .input-group-prepend
+            span.input-group-text #{"State"}
+          input.form-control(type='text', placeholder='State', name='State')
+      .form-group.col-2.offset-6
+        button.btn.btn-primary.form-control(type='submit') Search
+
+  each item in providers
+    .card
+      .card-body
+        h5.card-title #{item.providerName}
+        h6.card-subtitle #{item.drgDefinition}
+        .row.mt-3
+          .col-6
+            address 
+              div #{item.providerStreetAddress}
+              div #{item.providerCity}, #{item.providerState}, #{item.providerZipCode} 
+              div #{item.hospitalReferralRegionDescription}
+          .col-6
+            div #{"Total discharges: " + item.totalDischarges} 
+            div #{"Average Covered Charges: " + item.averageCoveredCharges} 
+            div #{"Average Total Payments : " + item.averageTotalPayments}
+            div #{"Average Medicare Payments : " + item.averageMedicarePayments}
+  
+  //- nav(aria-label="Page navigation example")
+  //-   ul.pagination
+  //-     li.page-item
+  //-       a.page-link(href="#" aria-label="Previous")
+  //-         span(aria-hidden="true") #{&laquo}
+  //-         span.sr-only #{"Previous"}
+  //-     li.page-item 
+  //-       a.page-link(href="#") 1
+  //-     li.page-item 
+  //-       a.page-link(href="#") 2
+  //-     li.page-item 
+  //-       a.page-link(href="#") 3
+  //-     li.page-item
+  //-       a.page-link(href="#" aria-label="Next")
+  //-         span(aria-hidden="true") #{&raquo}
+  //-         span.sr-only #{"Next"}
+
+
+  
